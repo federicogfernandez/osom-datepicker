@@ -351,7 +351,7 @@ var OsomDatepicker = (function(){
 });
 
 if ( typeof define === "function" && define.amd ) {
-	define( "osom-datepicker", [], function() {
+	define( "osomdatepicker", [], function() {
 		return OsomDatepicker();
 	});
 }else{
