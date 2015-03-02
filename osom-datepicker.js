@@ -12,7 +12,7 @@ var OsomDatepicker = (function(){
 		this.centralMonth = 0;
 		this.firstMonth = -1;
 		this.lastMonth = 1;
-		this.multipleDays = false;
+		this.multipleDays = this.selectedDates.length > 1 ? true : false;
 		this.uniqueId = Date.now();
 	};
 
@@ -23,11 +23,14 @@ var OsomDatepicker = (function(){
 		sliderClass: 'osom-datepicker-slider',
 		monthClass: 'osom-datepicker-month',
 		dayClass: 'osom-datepicker-day',
+		dayDisabledClass: 'osom-datepicker-daydisabled',
 		selectedDayClass: 'osom-datepicker-selectedday',
 		animatedClass: 'osom-datepicker-animated',
 		upButtonClass: 'osom-datepicker-upbutton',
 		downButtonClass: 'osom-datepicker-downbutton',
 		multipleDaysClass: 'osom-datepicker-multipledays',
+		layoutVerticalClass: 'osom-datepicker-layoutvertical',
+		layoutHorizontalClass: 'osom-datepicker-layouthorizontal',
 
 		events: {
 			DATE_SELECTED: 'DATE_SELECTED'
@@ -38,12 +41,24 @@ var OsomDatepicker = (function(){
 			this.el = document.querySelector(this.options.selector);
 
 			this.el.classList.add(this.wrapperClass);
+			if(this.options.animation === 'horizontal'){
+				this.el.classList.add(this.layoutHorizontalClass);
+			}else{
+				this.el.classList.add(this.layoutVerticalClass);
+			}
 
 			html += '<div class="osom-datepicker-buttonscontainer">';
-			html += '<input type="checkbox" class="' + this.multipleDaysClass + '" name="' + this.multipleDaysClass + '" id="' + this.multipleDaysClass + '-' + this.uniqueId + '" />';
+
+			html += '<input type="checkbox" class="' + this.multipleDaysClass + '" name="' + this.multipleDaysClass + '" id="' + this.multipleDaysClass + '-' + this.uniqueId + '" ' + (this.multipleDays ? 'checked="checked"' : '') + ' />';
+
 			html += '<label for="' + this.multipleDaysClass + '-' + this.uniqueId + '">Multiple Days</label>';
-			html += '<button class="' + this.upButtonClass + '">&#x25B2;</button>';
-			html += '<button class="' + this.downButtonClass + '">&#x25BC;</button>';
+			if(this.options.animation === 'horizontal'){
+				html += '<button class="' + this.upButtonClass + '">&#9668;</button>';
+				html += '<button class="' + this.downButtonClass + '">&#9658;</button>';
+			}else{
+				html += '<button class="' + this.upButtonClass + '">&#9650;</button>';
+				html += '<button class="' + this.downButtonClass + '">&#9660;</button>';
+			}
 			html += '</div>';
 
 			html += '<div class="' + this.containerClass + '">';
@@ -56,8 +71,6 @@ var OsomDatepicker = (function(){
 			html += '</div>';
 
 			this.el.innerHTML = html;
-
-			this.setDates(this.selectedDates);
 
 			this.bindEvents();
 		},
@@ -82,8 +95,21 @@ var OsomDatepicker = (function(){
 				do{
 					var day = new Date(date.getFullYear(), date.getMonth(), dayNumber+1);
 					if(day.getDay() === dayOfWeek && dayNumber <= day.getDate()){
+						var classes = this.dayClass;
 						html += '<td>';
-						html += '<button class="' + this.dayClass + '" data-date="' + day.getTime() + '">' + day.getDate() + '</button>';
+
+						if(this.options.fromDate){
+							Helper.resetTime(this.options.fromDate);
+							if(day < this.options.fromDate){
+								classes += ' ' + this.dayDisabledClass;
+							}
+						}
+
+						if(this.selectedDates.map(Number).indexOf(+day) !== -1){
+							classes += ' ' + this.selectedDayClass;
+						}
+
+						html += '<button class="' + classes + '" data-date="' + day.getTime() + '">' + day.getDate() + '</button>';
 						html += '</td>';
 						dayNumber++;
 					}else{
@@ -106,21 +132,32 @@ var OsomDatepicker = (function(){
 
 				this.currentMonth--;
 				var slider = this.el.querySelector('.' + this.sliderClass);
+				var monthWidth = slider.offsetWidth / slider.children.length;
 				var monthHeight = slider.offsetHeight / slider.children.length;
 				var sliderStyle = window.getComputedStyle(slider, null);
 
 				if(this.currentMonth < this.firstMonth){
 					this.firstMonth = this.currentMonth;
 
-					var date = Helper.addMonth(this.options.selectedDate, this.currentMonth);
+					var date = Helper.addMonth(this.selectedDates[0], this.currentMonth);
 					slider.insertAdjacentHTML('afterbegin', this.renderMonth(date));
-					slider.style.top = (parseInt(sliderStyle.top, 10) - monthHeight) + 'px';
-					//FORCING REPAINT
-					slider.offsetHeight;
+					if(this.options.animation === 'horizontal'){
+						slider.style.left = (parseInt(sliderStyle.left, 10) - monthWidth) + 'px';
+						//FORCING REPAINT
+						slider.offsetWidth;
+					}else{
+						slider.style.top = (parseInt(sliderStyle.top, 10) - monthHeight) + 'px';
+						//FORCING REPAINT
+						slider.offsetHeight;
+					}
 				}
 				
 				slider.classList.add(this.animatedClass);
-				slider.style.top = parseInt(slider.style.top || sliderStyle.top, 10) + monthHeight + 'px';
+				if(this.options.animation === 'horizontal'){
+					slider.style.left = parseInt(slider.style.left || sliderStyle.left, 10) + monthWidth + 'px';
+				}else{
+					slider.style.top = parseInt(slider.style.top || sliderStyle.top, 10) + monthHeight + 'px';
+				}
 				
 				setTimeout(function(){
 					self.animating = false;
@@ -136,18 +173,23 @@ var OsomDatepicker = (function(){
 
 				this.currentMonth++;
 				var slider = this.el.querySelector('.' + this.sliderClass);
+				var monthWidth = slider.offsetWidth / slider.children.length;
 				var monthHeight = slider.offsetHeight / slider.children.length;
 				var sliderStyle = window.getComputedStyle(slider, null);
 
 				if(this.currentMonth > this.lastMonth){
 					this.lastMonth = this.currentMonth;
 
-					var date = Helper.addMonth(this.options.selectedDate, this.currentMonth);
+					var date = Helper.addMonth(this.selectedDates[0], this.currentMonth);
 					slider.insertAdjacentHTML('beforeend', this.renderMonth(date));
 				}
 
 				slider.classList.add(this.animatedClass);
-				slider.style.top = parseInt(slider.style.top || sliderStyle.top, 10) - monthHeight + 'px';
+				if(this.options.animation === 'horizontal'){
+					slider.style.left = parseInt(slider.style.left || sliderStyle.left, 10) - monthWidth + 'px';
+				}else{
+					slider.style.top = parseInt(slider.style.top || sliderStyle.top, 10) - monthHeight + 'px';
+				}
 				setTimeout(function(){
 					self.animating = false;
 					slider.classList.remove(self.animatedClass);
@@ -175,7 +217,7 @@ var OsomDatepicker = (function(){
 			});
 
 			slider.addEventListener('click', function(e){
-				if(e.target.classList.contains(self.dayClass)){
+				if(e.target.classList.contains(self.dayClass) && !e.target.classList.contains(self.dayDisabledClass)){
 					self.handleDayClick(e.target);
 				}
 			});

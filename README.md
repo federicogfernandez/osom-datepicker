@@ -2,7 +2,7 @@
 A javascript datepicker with multiple dates selection capability.
 It has no dependencies, so download it and use it.
 ### Installation ###
-```
+```bash
 bower install --save osom-datepicker
 ```
 ### Usage ###
