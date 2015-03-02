@@ -1,0 +1,56 @@
+.osom-datepicker-wrapper{
+	width: 222px;
+}
+
+.osom-datepicker-wrapper .osom-datepicker-container{
+	position: relative;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 152px;
+	overflow: hidden;
+}
+
+.osom-datepicker-wrapper .osom-datepicker-container .osom-datepicker-slider{
+	position: relative;
+	width: 100%;
+	position: absolute;
+	top: -152px;
+	left: 0;
+}
+
+.osom-datepicker-wrapper .osom-datepicker-buttonscontainer{
+	padding: 10px;
+}
+
+.osom-datepicker-animated{
+	-webkit-transition: top 0.8s;
+	transition: top 0.8s;
+}
+
+.osom-datepicker-wrapper .osom-datepicker-container .osom-datepicker-slider .osom-datepicker-month{
+	width: 100%;
+	height: 152px;
+}
+
+.osom-datepicker-wrapper .osom-datepicker-container .osom-datepicker-slider .osom-datepicker-month table{
+	width: 100%;
+	border-spacing: 0;
+    border-collapse: separate;
+}
+
+.osom-datepicker-wrapper .osom-datepicker-container .osom-datepicker-slider .osom-datepicker-month table td{
+	padding: 0;
+}
+
+.osom-datepicker-wrapper .osom-datepicker-container .osom-datepicker-slider .osom-datepicker-month .osom-datepicker-day{
+	width: 100%;
+	height: 100%;
+	border: 0;
+	display: block;
+	cursor: pointer;
+}
+
+.osom-datepicker-wrapper .osom-datepicker-container .osom-datepicker-slider .osom-datepicker-month .osom-datepicker-selectedday{
+	background: red;
+}

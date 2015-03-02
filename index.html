@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Osom Datepicker</title>
+		<link href="osom-datepicker.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div id="osom-datepicker"></div>
+
+		<script type="text/javascript" src="osom-datepicker.js"></script>
+		<script type="text/javascript">
+			window.datepicker = new OsomDatepicker({
+				selector: '#osom-datepicker',
+				selectedDates: [new Date(2015, 0, 21), new Date(2015, 0, 22), new Date(2015, 0, 25)]
+			});
+			datepicker.initialize();
+			datepicker.on('DATE_SELECTED', function(e){
+				console.log(e.detail);
+			});
+		</script>
+	</body>
+</html>

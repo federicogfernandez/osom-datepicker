@@ -1,0 +1,20 @@
+{
+  "name": "osom-datepicker",
+  "main": "osom-datepicker.js",
+  "version": "0.1.0",
+  "authors": [
+    "Federico Fernández"
+  ],
+  "description": "Javascript Datepicker plugin with multiple dates selector",
+  "keywords": [
+    "datepicker",
+    "dates",
+    "date",
+    "calendar",
+    "osom",
+    "awesome",
+    "plugin",
+    "custom"
+  ],
+  "license": "MIT"
+}
