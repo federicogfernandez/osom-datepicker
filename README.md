@@ -9,7 +9,9 @@ bower install --save osom-datepicker
 ```javascript
 var datepicker = new OsomDatepicker({
 	selector: '#osom-datepicker',
-	selectedDates: [new Date()] //array of javascript Date objects
+	selectedDates: [new Date()], //array of javascript Date objects
+	fromDate: new Date(2015, 0, 21), //initial Date object
+	animation: 'horizontal' //animation direction
 });
 datepicker.initialize();
 ```
