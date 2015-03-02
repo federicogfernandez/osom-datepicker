@@ -348,4 +348,12 @@ var OsomDatepicker = (function(){
 
 	return OsomDatepickerPublic;
 
-})();
+});
+
+if ( typeof define === "function" && define.amd ) {
+	define( "osom-datepicker", [], function() {
+		return OsomDatepicker();
+	});
+}else{
+	OsomDatepicker = OsomDatepicker();
+}
