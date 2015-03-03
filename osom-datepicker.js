@@ -346,6 +346,10 @@ var OsomDatepicker = (function(){
 
 		setDates: function(dates){
 			datepickerInstance.setDates(dates);
+		},
+
+		toggleMultipleDays: function(){
+			datepickerInstance.toggleMultipleDays();
 		}
 
 	};
