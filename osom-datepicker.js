@@ -49,7 +49,7 @@ var OsomDatepicker = (function(){
 
 			html += '<div class="osom-datepicker-buttonscontainer">';
 
-			if(this.showMultipleDays){
+			if(this.options.showMultipleDays){
 				html += '<input type="checkbox" class="' + this.multipleDaysClass + '" name="' + this.multipleDaysClass + '" id="' + this.multipleDaysClass + '-' + this.uniqueId + '" ' + (this.multipleDays ? 'checked="checked"' : '') + ' />';
 				html += '<label for="' + this.multipleDaysClass + '-' + this.uniqueId + '">Multiple Days</label>';
 			}
@@ -214,9 +214,11 @@ var OsomDatepicker = (function(){
 				self.nextMonth();
 			});
 
-			multipleDays.addEventListener('change', function(){
-				self.toggleMultipleDays();
-			});
+			if(this.options.showMultipleDays){
+				multipleDays.addEventListener('change', function(){
+					self.toggleMultipleDays();
+				});
+			}
 
 			slider.addEventListener('click', function(e){
 				if(e.target.classList.contains(self.dayClass) && !e.target.classList.contains(self.dayDisabledClass)){
