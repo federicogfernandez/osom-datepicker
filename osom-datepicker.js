@@ -128,7 +128,9 @@ var OsomDatepicker = (function(){
 		},
 
 		prevMonth: function(){
-			if(!this.animating){
+			var prevMonth = this.options.fromDate ? Helper.addMonth(this.options.fromDate, this.currentMonth-1) : null;
+			console.log(prevMonth, this.options.fromDate);
+			if(!this.animating && (!prevMonth || this.options.fromDate <= prevMonth)){
 				var self = this;
 				this.animating = true;
 

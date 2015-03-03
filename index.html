@@ -11,9 +11,10 @@
 		<script type="text/javascript">
 			datepicker = new OsomDatepicker({
 				selector: '#osom-datepicker',
-				selectedDates: [new Date(2015, 0, 21), new Date(2015, 0, 22), new Date(2015, 0, 25)],
-				fromDate: new Date(2015, 0, 21),
-				animation: 'horizontal'
+				selectedDates: [new Date(2015, 2, 31), new Date(2015, 3, 22), new Date(2015, 3, 25)],
+				fromDate: new Date(2015, 2, 31),
+				animation: 'horizontal',
+				showMultipleDays: true
 			});
 			datepicker.initialize();
 			datepicker.on('DATE_SELECTED', function(e){
