@@ -49,9 +49,11 @@ var OsomDatepicker = (function(){
 
 			html += '<div class="osom-datepicker-buttonscontainer">';
 
-			html += '<input type="checkbox" class="' + this.multipleDaysClass + '" name="' + this.multipleDaysClass + '" id="' + this.multipleDaysClass + '-' + this.uniqueId + '" ' + (this.multipleDays ? 'checked="checked"' : '') + ' />';
+			if(this.showMultipleDays){
+				html += '<input type="checkbox" class="' + this.multipleDaysClass + '" name="' + this.multipleDaysClass + '" id="' + this.multipleDaysClass + '-' + this.uniqueId + '" ' + (this.multipleDays ? 'checked="checked"' : '') + ' />';
+				html += '<label for="' + this.multipleDaysClass + '-' + this.uniqueId + '">Multiple Days</label>';
+			}
 
-			html += '<label for="' + this.multipleDaysClass + '-' + this.uniqueId + '">Multiple Days</label>';
 			if(this.options.animation === 'horizontal'){
 				html += '<button class="' + this.upButtonClass + '">&#9668;</button>';
 				html += '<button class="' + this.downButtonClass + '">&#9658;</button>';
