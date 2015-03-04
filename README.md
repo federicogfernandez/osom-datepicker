@@ -11,7 +11,10 @@ var datepicker = new OsomDatepicker({
 	selector: '#osom-datepicker',
 	selectedDates: [new Date()], //array of javascript Date objects
 	fromDate: new Date(2015, 0, 21), //initial Date object
-	animation: 'horizontal' //animation direction
+	animation: 'horizontal', //animation direction
+	showMultipleDays: true, //show multiple days selection checkbox
+	dayNames: ['M', 'T', 'W', 'T', 'F', 'S', 'S'], //array day names if you want something different than S, M, T, W, T, F, S
+	weekStart: 'Monday' //day of week start default Sunday, possible value Monday
 });
 datepicker.initialize();
 ```
