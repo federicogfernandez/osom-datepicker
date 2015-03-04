@@ -86,7 +86,7 @@ var OsomDatepicker = (function(){
 			html += '<div class="' + this.monthClass + '"><span>' + Helper.getMonthName(date.getMonth()) + ' ' + date.getFullYear() + '</span><table>';
 
 			html += '<thead>';
-			html += '<th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>';
+			html += '<th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th><th>S</th>';
 			html += '</thead>';
 
 			html += '<tbody>';
