@@ -32,6 +32,8 @@ var OsomDatepicker = (function(){
 		layoutVerticalClass: 'osom-datepicker-layoutvertical',
 		layoutHorizontalClass: 'osom-datepicker-layouthorizontal',
 
+		dayNames: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+
 		events: {
 			DATE_SELECTED: 'DATE_SELECTED'
 		},
@@ -86,17 +88,22 @@ var OsomDatepicker = (function(){
 			html += '<div class="' + this.monthClass + '"><span>' + Helper.getMonthName(date.getMonth()) + ' ' + date.getFullYear() + '</span><table>';
 
 			html += '<thead>';
-			html += '<th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th><th>S</th>';
+			var names = this.options.dayNames || this.dayNames;
+			names.forEach(function(day){
+				html += '<th>' + day + '</th>';
+			});
 			html += '</thead>';
 
 			html += '<tbody>';
 			var dayNumber = 0;
 			for(var week = 1; week <= 6; week++){
-				var dayOfWeek = 0;
+				var dayOfWeek = this.options.weekStart === 'Monday' ? 1 : 0;
 				html += '<tr>';
 				do{
 					var day = new Date(date.getFullYear(), date.getMonth(), dayNumber+1);
-					if(day.getDay() === dayOfWeek && dayNumber <= day.getDate()){
+					var currentDayOfWeek = (day.getDay() === 0 && this.options.weekStart === 'Monday') ? 7 : day.getDay();
+
+					if(currentDayOfWeek === dayOfWeek && dayNumber <= day.getDate()){
 						var classes = this.dayClass;
 						html += '<td>';
 
@@ -118,7 +125,7 @@ var OsomDatepicker = (function(){
 						html += '<td>&nbsp;</td>';
 					}
 					dayOfWeek++;
-				}while(dayOfWeek <= 6);
+				}while((this.options.weekStart === 'Monday' && dayOfWeek <= 7) || dayOfWeek <= 6);
 				html += '</tr>';
 			}
 			html += '</tbody>';
