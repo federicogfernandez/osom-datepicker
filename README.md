@@ -14,15 +14,10 @@ var datepicker = new OsomDatepicker({
 	animation: 'horizontal', //animation direction
 	showMultipleDays: true, //show multiple days selection checkbox
 	dayNames: ['M', 'T', 'W', 'T', 'F', 'S', 'S'], //array day names if you want something different than S, M, T, W, T, F, S
-	weekStart: 'Monday' //day of week start default Sunday, possible value Monday
+	weekStart: 'Monday', //day of week start default Sunday, possible value Monday
+	onDateSelected: function(dates){} //callback that triggers when selected dates change
 });
 datepicker.initialize();
-```
-### Events ###
-```javascript
-datepicker.on('DATE_SELECTED', function(e){
-	console.log(e.detail);
-});
 ```
 ### What means 'osom'? ###
 It's the spanish pronunciaton for Awesome

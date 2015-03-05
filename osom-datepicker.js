@@ -34,10 +34,6 @@ var OsomDatepicker = (function(){
 
 		dayNames: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
 
-		events: {
-			DATE_SELECTED: 'DATE_SELECTED'
-		},
-
 		initialize: function(){
 			var html = '';
 			this.el = document.querySelector(this.options.selector);
@@ -253,7 +249,9 @@ var OsomDatepicker = (function(){
 
 			day.classList.toggle(this.selectedDayClass);
 
-			this.dispatchEvent(this.events.DATE_SELECTED, this.selectedDates);
+			if(this.options.onDateSelected){
+				this.options.onDateSelected(this.selectedDates);
+			}
 		},
 
 		toggleMultipleDays: function(){
@@ -263,21 +261,6 @@ var OsomDatepicker = (function(){
 				var day = this.el.querySelector('button[data-date="' + this.selectedDates[0].getTime() + '"]');
 				this.handleDayClick(day);
 			}
-		},
-
-		dispatchEvent: function(type, data){
-			var e = new CustomEvent(type, {
-				detail: data
-			});
-			this.el.dispatchEvent(e);
-		},
-
-		on: function(type, callback){
-			this.el.addEventListener(type, callback);
-		},
-
-		off: function(type, callback){
-			this.el.removeEventListener(type, callback);
 		},
 
 		setDates: function(dates){
@@ -304,7 +287,9 @@ var OsomDatepicker = (function(){
 				day.classList.toggle(self.selectedDayClass);
 			});
 
-			this.dispatchEvent(this.events.DATE_SELECTED, this.selectedDates);
+			if(this.options.onDateSelected){
+				this.options.onDateSelected(this.selectedDates);
+			}
 		}
 
 	};
@@ -343,14 +328,6 @@ var OsomDatepicker = (function(){
 
 		initialize: function(){
 			datepickerInstance.initialize();
-		},
-
-		on: function(type, callback){
-			datepickerInstance.on(type, callback);
-		},
-
-		off: function(type, callback){
-			datepickerInstance.off(type, callback);
 		},
 
 		setDates: function(dates){

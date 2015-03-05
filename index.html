@@ -16,12 +16,12 @@
 				animation: 'horizontal',
 				showMultipleDays: true,
 				dayNames: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-				weekStart: 'Monday'
+				weekStart: 'Monday',
+				onDateSelected: function(dates){
+					console.log(dates);
+				}
 			});
 			datepicker.initialize();
-			datepicker.on('DATE_SELECTED', function(e){
-				console.log(e.detail);
-			});
 		</script>
 	</body>
 </html>
