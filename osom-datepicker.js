@@ -81,7 +81,7 @@ var OsomDatepicker = (function(){
 			var month = date.getMonth()+1 <= 11 ? date.getMonth()+1 : 0;
 			var auxDate = new Date(year, month, 0);
 			
-			html += '<div class="' + this.monthClass + '"><span>' + Helper.getMonthName(date.getMonth()) + ' ' + date.getFullYear() + '</span><table>';
+			html += '<div class="' + this.monthClass + '"><span>' + Helper.getMonthName(date.getMonth(), this.options.monthNames) + ' ' + date.getFullYear() + '</span><table>';
 
 			html += '<thead>';
 			var names = this.options.dayNames || this.dayNames;
@@ -305,8 +305,8 @@ var OsomDatepicker = (function(){
 			return newDate;
 		},
 
-		getMonthName: function(month){
-			var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+		getMonthName: function(month, monthNames){
+			monthNames = monthNames || [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
 			return monthNames[month];
 		},
 
