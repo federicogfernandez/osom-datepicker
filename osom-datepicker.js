@@ -334,6 +334,10 @@ var OsomDatepicker = (function(){
 			datepickerInstance.setDates(dates);
 		},
 
+		getSelectedDates: function(dates){
+			return datepickerInstance.selectedDates;
+		},
+
 		toggleMultipleDays: function(){
 			datepickerInstance.toggleMultipleDays();
 		}
