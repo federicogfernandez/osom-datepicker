@@ -244,7 +244,15 @@ var OsomDatepicker = (function(){
 
 				this.selectedDates = [new Date(parseInt(day.dataset.date, 10))];
 			}else{
-				this.selectedDates.push(new Date(parseInt(day.dataset.date, 10)));
+				if(day.classList.contains(this.selectedDayClass)){
+					var index = this.selectedDates.map(Number).indexOf(+new Date(parseInt(day.dataset.date, 10)));
+					if(index !== -1){
+						this.selectedDates.splice(index, 1);
+					}
+				}else{
+					this.selectedDates.push(new Date(parseInt(day.dataset.date, 10)));
+					this.selectedDates.sort(Helper.sortDates);
+				}
 			}
 
 			day.classList.toggle(this.selectedDayClass);
@@ -280,6 +288,7 @@ var OsomDatepicker = (function(){
 				checkbox.checked = false;
 			}
 			this.selectedDates = dates;
+			this.selectedDates.sort(Helper.sortDates);
 
 			this.selectedDates.forEach(function(date){
 				Helper.resetTime(date);
@@ -315,6 +324,15 @@ var OsomDatepicker = (function(){
 			date.setMinutes(0);
 			date.setSeconds(0);
 			date.setMilliseconds(0);
+		},
+
+		sortDates: function(a, b){
+			if(a < b){
+				return -1;
+			}else if(a > b){
+				return 1;
+			}
+			return 0;
 		}
 	};
 
