@@ -271,7 +271,7 @@ var OsomDatepicker = (function(){
 			}
 		},
 
-		setDates: function(dates){
+		setDates: function(dates, silent){
 			var self = this;
 			var checkbox = this.el.querySelector('.' + this.multipleDaysClass);
 			var days = this.el.querySelectorAll('.' + this.selectedDayClass);
@@ -282,10 +282,14 @@ var OsomDatepicker = (function(){
 
 			if(dates.length > 1){
 				this.multipleDays = true;
-				checkbox.checked = true;
+				if(checkbox){
+					checkbox.checked = true;
+				}
 			}else{
 				this.multipleDays = false;
-				checkbox.checked = false;
+				if(checkbox){
+					checkbox.checked = false;
+				}
 			}
 			this.selectedDates = dates;
 			this.selectedDates.sort(Helper.sortDates);
@@ -348,8 +352,8 @@ var OsomDatepicker = (function(){
 			datepickerInstance.initialize();
 		},
 
-		setDates: function(dates){
-			datepickerInstance.setDates(dates);
+		setDates: function(dates, silent){
+			datepickerInstance.setDates(dates, silent);
 		},
 
 		getSelectedDates: function(dates){
