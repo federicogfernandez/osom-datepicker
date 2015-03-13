@@ -324,6 +324,7 @@ var OsomDatepicker = (function(){
 		},
 
 		resetTime: function(date){
+			date.setTime(date.getTime() + date.getTimezoneOffset() * 60000);
 			date.setHours(0);
 			date.setMinutes(0);
 			date.setSeconds(0);
