@@ -303,6 +303,15 @@ var OsomDatepicker = (function(){
 			if(this.options.onDateSelected && !silent){
 				this.options.onDateSelected(this.selectedDates);
 			}
+
+			if(dates.length === 1){
+				var lastDayOfMonth = new Date(dates[0].getFullYear(), dates[0].getMonth()+1, 0);
+				if(dates[0].getDate() === 1){
+					this.nextMonth();
+				}else if(dates[0].getDate() === lastDayOfMonth.getDate()){
+					this.prevMonth();
+				}
+			}
 		}
 
 	};
