@@ -322,7 +322,13 @@ var OsomDatepicker = (function(){
 			var newDate = new Date(date.getTime());
 			newDate.setDate(1);
 			newDate.setMonth(date.getMonth()+add);
-			newDate.setDate(date.getDate());
+
+			var lastDayOfMonth = new Date(newDate.getFullYear(), newDate.getMonth()+1, 0);
+			if(date.getDate() > lastDayOfMonth.getDate()){
+				newDate.setDate(lastDayOfMonth.getDate());
+			}else{
+				newDate.setDate(date.getDate());
+			}
 
 			return newDate;
 		},
