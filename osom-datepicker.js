@@ -72,6 +72,11 @@ var OsomDatepicker = (function(){
 
 			this.el.innerHTML = html;
 
+			if(this.options.fromDate < new Date()){
+				var upButton = this.el.querySelector('.' + this.upButtonClass);
+				upButton.disabled = 'disabled';
+			}
+
 			this.bindEvents();
 		},
 
@@ -132,7 +137,7 @@ var OsomDatepicker = (function(){
 
 		prevMonth: function(){
 			var prevMonth = this.options.fromDate ? Helper.addMonth(this.options.fromDate, this.currentMonth-1) : null;
-			console.log(prevMonth, this.options.fromDate);
+			
 			if(!this.animating && (!prevMonth || this.options.fromDate <= prevMonth)){
 				var self = this;
 				this.animating = true;
@@ -170,6 +175,13 @@ var OsomDatepicker = (function(){
 					self.animating = false;
 					slider.classList.remove(self.animatedClass);
 				}, 1000);
+
+				var prevPrevMonth = Helper.addMonth(prevMonth, -1);
+				
+				if(prevPrevMonth < this.options.fromDate){
+					var upButton = this.el.querySelector('.' + this.upButtonClass);
+					upButton.disabled = 'disabled';
+				}
 			}
 		},
 
@@ -201,6 +213,9 @@ var OsomDatepicker = (function(){
 					self.animating = false;
 					slider.classList.remove(self.animatedClass);
 				}, 800);
+
+				var upButton = this.el.querySelector('.' + this.upButtonClass);
+				upButton.disabled = null;
 			}
 		},
 
