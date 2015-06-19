@@ -72,7 +72,7 @@ var OsomDatepicker = (function(){
 
 			this.el.innerHTML = html;
 
-			if(this.options.fromDate < new Date()){
+			if(this.options.fromDate < new Date() && this.selectedDates[0].getFullYear() === this.options.fromDate.getFullYear() && this.selectedDates[0].getMonth() === this.options.fromDate.getMonth()){
 				var upButton = this.el.querySelector('.' + this.upButtonClass);
 				upButton.disabled = 'disabled';
 			}
@@ -136,9 +136,9 @@ var OsomDatepicker = (function(){
 		},
 
 		prevMonth: function(){
-			var prevMonth = this.options.fromDate ? Helper.addMonth(this.options.fromDate, this.currentMonth-1) : null;
+			var date = Helper.addMonth(this.selectedDates[0], this.currentMonth-1);
 			
-			if(!this.animating && (!prevMonth || this.options.fromDate <= prevMonth)){
+			if(!this.animating && this.options.fromDate.getFullYear() <= date.getFullYear() && this.options.fromDate.getMonth() <= date.getMonth()){
 				var self = this;
 				this.animating = true;
 
@@ -151,7 +151,6 @@ var OsomDatepicker = (function(){
 				if(this.currentMonth < this.firstMonth){
 					this.firstMonth = this.currentMonth;
 
-					var date = Helper.addMonth(this.selectedDates[0], this.currentMonth);
 					slider.insertAdjacentHTML('afterbegin', this.renderMonth(date));
 					if(this.options.animation === 'horizontal'){
 						slider.style.left = (parseInt(sliderStyle.left, 10) - monthWidth) + 'px';
@@ -176,9 +175,9 @@ var OsomDatepicker = (function(){
 					slider.classList.remove(self.animatedClass);
 				}, 1000);
 
-				var prevPrevMonth = Helper.addMonth(prevMonth, -1);
-				
-				if(prevPrevMonth < this.options.fromDate){
+				var prevMonth = Helper.addMonth(date, -1);
+					
+				if(prevMonth.getFullYear() <= this.options.fromDate.getFullYear() && prevMonth.getMonth() < this.options.fromDate.getMonth()){
 					var upButton = this.el.querySelector('.' + this.upButtonClass);
 					upButton.disabled = 'disabled';
 				}
