@@ -3,7 +3,8 @@
   "main": "osom-datepicker.js",
   "version": "0.2.15",
   "authors": [
-    "Federico Fernández, Yuriy Bushev"
+    "Federico Fernández",
+    "Yuriy Bushev"
   ],
   "description": "Javascript Datepicker plugin with multiple dates selector. Updated version.",
   "keywords": [
