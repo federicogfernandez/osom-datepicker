@@ -1,11 +1,12 @@
 {
-  "name": "osom-datepicker",
+  "name": "osom-datepicker-2",
   "main": "osom-datepicker.js",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "authors": [
-    "Federico Fernández"
+    "Federico Fernández",
+    "Yuriy Bushev"
   ],
-  "description": "Javascript Datepicker plugin with multiple dates selector",
+  "description": "Javascript Datepicker plugin with multiple dates selector. Updated version.",
   "keywords": [
     "datepicker",
     "dates",
@@ -16,5 +17,9 @@
     "plugin",
     "custom"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bushev/osom-datepicker.git"
+  }
 }

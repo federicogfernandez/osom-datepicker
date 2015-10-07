@@ -8,6 +8,7 @@ var OsomDatepicker = (function(){
 		this.selectedDates.forEach(function(date){
 			Helper.resetTime(date);
 		});
+		this.initialDate = this.selectedDates[0];
 		this.currentMonth = 0;
 		this.centralMonth = 0;
 		this.firstMonth = -1;
@@ -198,7 +199,7 @@ var OsomDatepicker = (function(){
 				if(this.currentMonth > this.lastMonth){
 					this.lastMonth = this.currentMonth;
 
-					var date = Helper.addMonth(this.selectedDates[0], this.currentMonth);
+					var date = Helper.addMonth(this.initialDate, this.currentMonth);
 					slider.insertAdjacentHTML('beforeend', this.renderMonth(date));
 				}
 
